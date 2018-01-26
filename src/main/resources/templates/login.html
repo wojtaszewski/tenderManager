@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+    <title>Strona logowania</title>
+</head>
+<body>
+<div tiles:fragment="content">
+    <form name="f" th:action="@{/login}" method="post">
+
+        <h1>Formularz logowania</h1>
+
+        <label for="username">Użytkownik</label>
+        <input type="text" id="username" name="username"/>
+        <label for="password">Hasło</label>
+        <input type="password" id="password" name="password"/>
+        <button type="submit" class="btn">Zaloguj</button>
+
+        <div th:if="${param.error}" class="alert alert-error">
+            <h2 style="color:red;">Niepoprawny login lub hasło.</h2>
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success">
+            <h2 style="color:blue;">Poprawne wylogowanie.</h2>
+        </div>
+
+
+    </form>
+</div>
+</body>
+</html>
