@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<header id="header" th:fragment="header">
+
+    <img id="banner" src="/graphic/tendermanagement.png" alt="Banner" />
+    <form  id="logoutButtonPosition" th:action="@{/logout}" method="post">
+        <input id="logoutButton" type="submit" value="Wyloguj"/>
+    </form>
+
+</header>
+</body>
+</html>

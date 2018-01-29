@@ -10,18 +10,15 @@ public class HomeController {
 
     @RequestMapping(value="/login")
     public String login () {
+
         return "login";
     }
 
-    @RequestMapping(value="/")
-    public String mainUser () {
-        return "main";
-    }
 
-    @RequestMapping(value="/main")
+    @RequestMapping(value={"/main", "/"})
     public String main(Model model){
         //na razie na sztywno
-        model.addAttribute("user","Dominika");
+        model.addAttribute("user","Dominika - wpisane na sztywno!");
         return "main";
     }
 
