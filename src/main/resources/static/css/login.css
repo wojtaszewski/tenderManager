@@ -1,7 +1,9 @@
-			div {
+    		div {
+    		    margin-left: 25%;
+                width: 50%;
                 border-radius: 5px;
                 background-color: #f2f2f2;
-                padding: 20px;
+                padding: 15px;
             }
 
             input{
@@ -27,4 +29,14 @@
 
             button:hover {
                 background-color: #45a049;
+            }
+
+            #error{
+                text-align: center;
+                color:red;
+            }
+
+            #logout{
+                text-align: center;
+                color:blue;
             }
