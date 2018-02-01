@@ -1,6 +1,5 @@
 package com.gmail.korobacz.projectmanagement.controler;
 
-import com.gmail.korobacz.projectmanagement.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +9,6 @@ public class HomeController {
 
     @RequestMapping(value="/login")
     public String login () {
-
         return "login";
     }
 
