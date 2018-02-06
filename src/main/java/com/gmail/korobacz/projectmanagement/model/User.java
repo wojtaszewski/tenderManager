@@ -1,13 +1,11 @@
 package com.gmail.korobacz.projectmanagement.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+
+import javax.persistence.*;
 import java.util.Collection;
 
-@Entity
-public class Users extends BaseEntity {
+@Entity(name="users")
+public class User extends BaseEntity {
 
     private String firstName;
     private String lastName;
@@ -17,10 +15,10 @@ public class Users extends BaseEntity {
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Collection<Role> roles;
 
-    public Users(){
+    public User(){
     }
 
-    public Users(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+    public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -51,17 +49,17 @@ public class Users extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Users)) return false;
+        if (!(o instanceof User)) return false;
 
-        Users users = (Users) o;
+        User user = (User) o;
 
-        if (getFirstName() != null ? !getFirstName().equals(users.getFirstName()) : users.getFirstName() != null)
+        if (getFirstName() != null ? !getFirstName().equals(user.getFirstName()) : user.getFirstName() != null)
             return false;
-        if (getLastName() != null ? !getLastName().equals(users.getLastName()) : users.getLastName() != null)
+        if (getLastName() != null ? !getLastName().equals(user.getLastName()) : user.getLastName() != null)
             return false;
-        if (!getEmail().equals(users.getEmail())) return false;
-        if (!getPassword().equals(users.getPassword())) return false;
-        return getRoles() != null ? getRoles().equals(users.getRoles()) : users.getRoles() == null;
+        if (!getEmail().equals(user.getEmail())) return false;
+        if (!getPassword().equals(user.getPassword())) return false;
+        return getRoles() != null ? getRoles().equals(user.getRoles()) : user.getRoles() == null;
     }
 
     @Override

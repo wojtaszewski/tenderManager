@@ -1,21 +1,15 @@
-package com.gmail.korobacz.projectmanagement.Repository;
+package com.gmail.korobacz.projectmanagement.repository;
 
-import com.gmail.korobacz.projectmanagement.model.Users;
+import com.gmail.korobacz.projectmanagement.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-//@Repository
-//public class UserRepository extends EntityRepository<Users> {
-//
-//    public Users findByEmail(String email){
-//        return null;
-//    }
-//
-//}
+import java.util.Optional;
+
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Users findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
 }

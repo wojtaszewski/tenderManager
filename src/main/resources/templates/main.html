@@ -1,22 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <title>Witaj!</title>
 </head>
 
 <body>
 
-<div th:replace="header :: header"></div>
+<div th:replace="header :: header(${user})"></div>
 
 
 <div id="wrapper">
 
     <main>
         <div id="content">
-            <h1>Zawartość</h1>
-            <h1 th:inline="text">Witaj [[${#httpServletRequest.remoteUser}]]!</h1>
-            <h2 th:text="${user}"></h2>
+            <h1 th:inline="text">Witaj <span sec:authentication="name">Bob</span> !</h1>
+            <div th:if="${user} != null">
+                <h1>Dane zalogowanego użytkownika:</h1>
+                <p th:text="'imię: ' + ${user.firstName}" />
+                <p th:text="'nazwisko: ' + ${user.lastName}" />
+                <p th:text="'email: ' + ${user.email}" />
+            </div>
+
+
+            <div sec:authorize="isAuthenticated()">
+                To się wyświetla, gdy użytkownik jest zalogowany
+            </div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                To widzi tylko administrator
+            </div>
+            <div sec:authorize="hasRole('ROLE_USER')">
+                To widzi zwykły użytkownik
+            </div>
+            Zalogowany użytkownik: <span sec:authentication="name">email</span>
+            Rola: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+            <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                Treść widoczna tylko dla role_admin.
+            </div>
+
+
+            <p><a href="/greeting">greeting</a></p>
         </div>
     </main>
 
