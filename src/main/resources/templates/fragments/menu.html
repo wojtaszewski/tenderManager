@@ -24,7 +24,7 @@
     <div sec:authorize="hasRole('ROLE_ADMIN')">
     <h3>MENU DLA ADMINISTRATORA</h3>
     <ul>
-        <li><a href="/admin/#">Link 1</a></li>
+        <li><a href="/admin/addUser" th:href="@{/admin/addUser}">Dodaj nowego użytkownika</a></li>
         <li><a href="/admin/#">Link 2</a></li>
         <li><a href="/admin/#">Link 3</a></li>
         <li><a href="/admin/#">Link 4</a></li>

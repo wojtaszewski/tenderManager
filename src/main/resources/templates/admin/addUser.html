@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Dodaj użytkownika</title>
+</head>
+
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div id="wrapper">
+
+    <main>
+        <div id="content">
+
+            <div th:if="${status} == true">
+                <h2>Użytkownik został dodany</h2>
+            </div>
+            <div th:if="${status} == false">
+                <h2>Wystąpił błąd, użytkownik nie został dodany</h2>
+            </div>
+
+            <div th:if="${newUser} !=null">
+                <form name="f" th:action="@{/admin/addUser}" th:object="${newUser}" method="post">
+
+                    <h1>Podaj dane nowego użytkownika</h1>
+
+                    <label for="firstName">Imię:</label><br/>
+                    <input type="text" th:field="*{firstName}" id="firstName" name="firstName"/><br/>
+
+                    <label for="lastName">Nazwisko:</label><br/>
+                    <input type="text" th:field="*{lastName}" id="lastName" name="lastName"/><br/>
+
+                    <label for="username">email (login):</label><br/>
+                    <input type="text" th:field="*{email}" id="username" name="username"/><br/>
+
+                    <label for="password">hasło:</label><br/>
+                    <input type="password" th:field="*{password}" id="password" name="password"/><br/>
+
+                    <label>Uprawnienia:</label>
+                    <ul>
+                        <li th:each="role,iter : ${roles}">
+                            <input type="checkbox" th:field="*{roles[__${iter.index}__].name}" th:value="${role.name}"/>
+                            <label th:text="${role.name}">Rola</label>
+                        </li>
+                    </ul>
+
+                    <button type="submit" class="btn">Dodaj</button>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>

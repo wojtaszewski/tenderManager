@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <title>Witaj!</title>
-</head>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
-<body>
+    <head>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+        <title>Witaj!</title>
+    </head>
 
-<div th:replace="header :: header(${user})"></div>
+    <body>
 
+    <div th:replace="fragments/header :: header"></div>
 
-<div id="wrapper">
+    <div id="wrapper">
 
     <main>
         <div id="content">
+
             <h1 th:inline="text">Witaj <span sec:authentication="name">Bob</span> !</h1>
-            <div th:if="${user} != null">
+            <div th:if="${session.user} != null">
                 <h1>Dane zalogowanego użytkownika:</h1>
-                <p th:text="'imię: ' + ${user.firstName}" />
-                <p th:text="'nazwisko: ' + ${user.lastName}" />
-                <p th:text="'email: ' + ${user.email}" />
+                <p th:text="'imię: ' + ${session.user.firstName}" />
+                <p th:text="'nazwisko: ' + ${session.user.lastName}" />
+                <p th:text="'email: ' + ${session.user.email}" />
             </div>
 
 
@@ -39,18 +40,16 @@
                 Treść widoczna tylko dla role_admin.
             </div>
 
-
-            <p><a href="/greeting">greeting</a></p>
         </div>
     </main>
 
 
-    <div th:replace="menu :: menu"></div>
+    <div th:replace="fragments/menu :: menu"></div>
 
 </div>
 
 
-<div th:replace="footer :: footer"></div>
+<div th:replace="fragments/footer :: footer"></div>
 
 
 </body>

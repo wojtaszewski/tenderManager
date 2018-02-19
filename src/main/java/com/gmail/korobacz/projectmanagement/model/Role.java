@@ -3,15 +3,11 @@ package com.gmail.korobacz.projectmanagement.model;
 import javax.persistence.Entity;
 
 @Entity
-public class Role  extends BaseEntity{
+public class Role extends BaseEntity {
 
     private String name;
 
-    public Role(){
-    }
-
-    public Role(String name) {
-        this.name = name;
+    public Role() {
     }
 
     public String getName() {

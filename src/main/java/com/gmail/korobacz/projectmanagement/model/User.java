@@ -1,10 +1,12 @@
 package com.gmail.korobacz.projectmanagement.model;
 
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import java.util.Collection;
 
-@Entity(name="users")
+@Entity(name = "users")
 public class User extends BaseEntity {
 
     private String firstName;

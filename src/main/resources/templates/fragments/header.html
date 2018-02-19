@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<header id="header" th:fragment="header(user)">
+<header id="header" th:fragment="header">
 
     <img id="banner" src="/graphic/tendermanagement.png" alt="Banner" />
 
@@ -10,8 +10,8 @@
         <input id="logoutButton" type="submit" value="Wyloguj"/>
     </form>
 
-    <div id="userWelcome" th:if="${user} != null">
-        <p th:text="'Witaj ' + ${user.firstName} + ' ' + ${user.lastName} + '!'" />
+    <div id="userWelcome">
+        <p th:text="'Witaj ' + ${session.user.firstName} + ' ' + ${session.user.lastName} + '!'" th:unless="${session == null}"/>
     </div>
 
 </header>
