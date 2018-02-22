@@ -15,6 +15,7 @@ public class Role extends BaseEntity {
         return name;
     }
 
+    //lalala
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
