@@ -14,7 +14,7 @@ public class User extends BaseEntity {
     private String email;
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     private Collection<Role> roles;
 
     public User(){

@@ -10,6 +10,7 @@ public class Role extends BaseEntity {
     public Role() {
     }
 
+
     public String getName() {
         return name;
     }

@@ -81,6 +81,9 @@ public class UserService implements UserDetailsService {
                 .getRoles()
                 .stream()
                 .anyMatch(role -> role.getName() != null);
+        if (userDTO.getEmail() == null || userDTO.getPassword() == null) {
+            return false;
+        }
         if (!userDTO.getEmail().isEmpty() && !userDTO.getPassword().isEmpty() && isRoleValid) {
             return true;
         }
