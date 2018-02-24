@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Usuń użytkownika</title>
+</head>
+
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div id="wrapper">
+
+    <main>
+        <div id="content">
+
+            <div th:if="${status} == true">
+                <h2>Wybrany użytkownik został usunięty</h2>
+            </div>
+            <div th:if="${status} == false">
+                <h2>Wystąpił błąd, użytkownik nie został usunięty</h2>
+            </div>
+
+            <div th:if="${users} !=null">
+                <form name="f" th:action="@{/admin/deleteUser}" th:object="${selectedUser}" method="post">
+
+                    <h1>Wybierz użytkownika do usunięcia z poniższej listy</h1>
+
+                    <li th:each="user,iter : ${users}">
+                        <input type="radio" th:field="*{email}" th:value="${user.email}"/>
+                        <label th:text="|${user.email} ${user.firstName} ${user.lastName}">Użytkownik</label>
+                    </li>
+
+                    <button type="submit" class="btn">Usuń</button>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>

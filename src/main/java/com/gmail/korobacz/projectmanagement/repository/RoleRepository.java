@@ -14,4 +14,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     List<Role> findAllDistinct();
 
     List<Role> findByNameIn(List<String> names);
+
+    Role findByName(String name);
 }

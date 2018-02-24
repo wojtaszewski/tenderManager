@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Dodaj rolę</title>
+</head>
+
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div id="wrapper">
+
+    <main>
+        <div id="content">
+
+            <div th:if="${status} == true">
+                <h2>Rola została dodana</h2>
+            </div>
+            <div th:if="${status} == false">
+                <h2>Wystąpił błąd, rola nie została dodana</h2>
+            </div>
+
+            <div th:if="${newRole} !=null">
+                <form name="f" th:action="@{/admin/addRole}" th:object="${newRole}" method="post">
+
+                    <h1>Podaj nazwę nowej roli</h1>
+
+                    <label for="name">Nazwa:</label><br/>
+                    <input type="text" th:field="*{name}" id="name" name="name"/><br/>
+
+                    <button type="submit" class="btn">Dodaj</button>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 package com.gmail.korobacz.projectmanagement.service;
 
 import com.gmail.korobacz.projectmanagement.dto.RoleDTO;
+import com.gmail.korobacz.projectmanagement.exception.AddRoleException;
 import com.gmail.korobacz.projectmanagement.model.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,12 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -77,6 +79,45 @@ public class RoleServiceIntegrationTest {
         Collection<Role> roles = roleService.getRolesByNames(rolesDTO);
         //then
         assertThat(roles).isNotNull().isEmpty();
+    }
+
+    @Test
+    public void shouldSaveRole() throws AddRoleException {
+        //given
+        RoleDTO roleDTO = new RoleDTO((long) 1, "elo");
+        //when
+        roleService.save(roleDTO);
+        //then
+        assertThat(roleService.getRoleByName(roleDTO));
+    }
+
+    @Test
+    public void shouldNotSaveRoleWhenRoleIsNull(){
+        //given
+        //when
+        Throwable thrown = catchThrowable(() -> roleService.save(null));
+        //then
+        assertThat(thrown).isInstanceOf(AddRoleException.class);
+    }
+
+    @Test
+    public void shouldNotSaveRoleWhenRoleNameIsNull(){
+        //given
+        RoleDTO roleDTO = new RoleDTO((long) 1, null);
+        //when
+        Throwable thrown = catchThrowable(() -> roleService.save(roleDTO));
+        //then
+        assertThat(thrown).isInstanceOf(AddRoleException.class);
+    }
+
+    @Test
+    public void shouldNotSaveRoleWhenRoleNameIsEmpty(){
+        //given
+        RoleDTO roleDTO = new RoleDTO((long) 1, "");
+        //when
+        Throwable thrown = catchThrowable(() -> roleService.save(roleDTO));
+        //then
+        assertThat(thrown).isInstanceOf(AddRoleException.class);
     }
 
 }
