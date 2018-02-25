@@ -88,7 +88,8 @@ public class RoleServiceIntegrationTest {
         //when
         roleService.save(roleDTO);
         //then
-        assertThat(roleService.getRoleByName(roleDTO));
+        assertThat(roleService.getRoleByName(roleDTO).isPresent());
+        assertThat(roleService.getRoleByName(roleDTO).get().getName().equals("ROLE_"+roleDTO));
     }
 
     @Test
@@ -114,6 +115,26 @@ public class RoleServiceIntegrationTest {
     public void shouldNotSaveRoleWhenRoleNameIsEmpty(){
         //given
         RoleDTO roleDTO = new RoleDTO((long) 1, "");
+        //when
+        Throwable thrown = catchThrowable(() -> roleService.save(roleDTO));
+        //then
+        assertThat(thrown).isInstanceOf(AddRoleException.class);
+    }
+
+    @Test
+    public void shouldNotSaveRoleWhenRoleNameIsAlreadyExists(){
+        //given
+        RoleDTO roleDTO = new RoleDTO((long) 1, "ROLE_ADMIN");
+        //when
+        Throwable thrown = catchThrowable(() -> roleService.save(roleDTO));
+        //then
+        assertThat(thrown).isInstanceOf(AddRoleException.class);
+    }
+
+    @Test
+    public void shouldSaveRoleWhenRoleNamePrefixIs(){
+        //given
+        RoleDTO roleDTO = new RoleDTO((long) 1, "ROLE_ADMIN");
         //when
         Throwable thrown = catchThrowable(() -> roleService.save(roleDTO));
         //then

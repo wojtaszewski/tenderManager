@@ -80,4 +80,22 @@ public class AdminController {
         }
         return "admin/addRole";
     }
+
+    @RequestMapping(value = "/deleteRole", method = RequestMethod.GET)
+    public String deleteRoleList(Model model) {
+        model.addAttribute("roles", roleService.getAllPossibleRoles());
+        model.addAttribute("selectedRole", new RoleDTO());
+        return "admin/deleteRole";
+    }
+
+    @RequestMapping(value = "/deleteRole", method = RequestMethod.POST)
+    public String deleteRole(@Valid RoleDTO role, BindingResult bindingResult, Model model) {
+        try {
+            roleService.save(role);
+            model.addAttribute("status", true);
+        } catch (AddRoleException e) {
+            model.addAttribute("status", false);
+        }
+        return "admin/deleteRole";
+    }
 }
