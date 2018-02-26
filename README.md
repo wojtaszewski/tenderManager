@@ -18,7 +18,6 @@ Application uses the following technologies:
 
 ### Prerequisites
 -	Java SDK
--	Apache Tomcat
 -	Apache Maven
 
 ### Instaling JDK
@@ -27,15 +26,21 @@ https://docs.oracle.com/javase/7/docs/webnotes/install/windows/jdk-installation-
 ### Installing Maven
 https://maven.apache.org/download.cgi#Installation
 
-### Installing Tomcat
-https://tomcat.apache.org/tomcat-7.0-doc/setup.html
-
 ## Clone repository to your computer:
+```
 $ git clone https://github.com/wojtaszewski/tenderManager.git
+```
 
 ## Run the project using Spring Boot plugin
+```
 $ mvn spring-boot:run -Dspring.profiles.active=dev
+```
+
+# Enjoy to watching effects
+http://localhost:8080/login
 
 ## Running the tests
 To run integration tests use Maven command
+```
 $ mvn integration-test
+```
