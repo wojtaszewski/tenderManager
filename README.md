@@ -39,6 +39,14 @@ $ mvn spring-boot:run -Dspring.profiles.active=dev
 # Enjoy to watching effects
 http://localhost:8080/login
 
+default admin user:
+login: w@w.w
+pass: w
+
+default standard user:
+login: p@p.p
+pass: p
+
 ## Running the tests
 To run integration tests use Maven command
 ```
