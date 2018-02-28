@@ -2,22 +2,24 @@ package com.gmail.korobacz.projectmanagement.service;
 
 import com.gmail.korobacz.projectmanagement.dto.RoleDTO;
 import com.gmail.korobacz.projectmanagement.exception.AddRoleException;
+import com.gmail.korobacz.projectmanagement.exception.DeleteRoleException;
 import com.gmail.korobacz.projectmanagement.model.Role;
+import com.gmail.korobacz.projectmanagement.repository.CustomRepository;
 import com.gmail.korobacz.projectmanagement.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class RoleService {
 
     private RoleRepository roleRepository;
+    private CustomRepository customRepository;
 
-    public RoleService(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository, CustomRepository customRepository) {
         this.roleRepository = roleRepository;
+        this.customRepository = customRepository;
     }
 
     public List<RoleDTO> getAllPossibleRoles() {
@@ -37,6 +39,7 @@ public class RoleService {
         return roleRepository.findByNameIn(names);
     }
 
+    //zmienić z name na id jako klucz
     public Optional<Role> getRoleByName(RoleDTO role) {
         String roleName = role.getName().toUpperCase();
         if (roleName.startsWith("ROLE_")) {
@@ -57,4 +60,14 @@ public class RoleService {
             roleRepository.save(new Role("ROLE_" + role.getName().toUpperCase()));
         }
     }
+
+    public void deleteRole(RoleDTO roleDTO) throws DeleteRoleException {
+        boolean condition = customRepository.isRoleActive(getRoleByName(roleDTO).get());
+        if(condition){
+            throw new DeleteRoleException();
+        }else{
+            roleRepository.deleteByName(roleDTO.getName());
+        }
+    }
 }
+

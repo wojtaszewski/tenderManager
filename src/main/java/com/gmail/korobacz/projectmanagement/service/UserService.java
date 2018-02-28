@@ -7,9 +7,7 @@ import com.gmail.korobacz.projectmanagement.exception.DeleteUserException;
 import com.gmail.korobacz.projectmanagement.model.Role;
 import com.gmail.korobacz.projectmanagement.model.User;
 import com.gmail.korobacz.projectmanagement.repository.UserRepository;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -56,7 +54,7 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Nie ma takiego usera"));
     }
 
-    public void save(UserDTO userDTO) throws AddUserException {
+    public void saveUser(UserDTO userDTO) throws AddUserException {
         if (userDTO == null) {
             throw new AddUserException();
         }
@@ -112,6 +110,5 @@ public class UserService implements UserDetailsService {
         }
         return false;
     }
-
 }
 

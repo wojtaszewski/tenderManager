@@ -46,7 +46,7 @@ public class UserServiceIntegrationTest {
                 .roles(roles)
                 .build();
         //when
-        userService.save(userDTO);
+        userService.saveUser(userDTO);
         //then
         UserDTO createdUser = userService.getUserDetails("shouldAddUser@test.pl");
         assertThat(createdUser).isEqualToComparingOnlyGivenFields(userDTO, "firstName", "lastName", "email");
@@ -67,7 +67,7 @@ public class UserServiceIntegrationTest {
                 .roles(roles)
                 .build();
         //when
-        Throwable thrown = catchThrowable(() -> userService.save(userDTO));
+        Throwable thrown = catchThrowable(() -> userService.saveUser(userDTO));
         //then
         assertThat(thrown).isInstanceOf(AddUserException.class);
     }
@@ -87,7 +87,7 @@ public class UserServiceIntegrationTest {
                 .roles(roles)
                 .build();
         //when
-        Throwable thrown = catchThrowable(() -> userService.save(userDTO));
+        Throwable thrown = catchThrowable(() -> userService.saveUser(userDTO));
         //then
         assertThat(thrown).isInstanceOf(AddUserException.class);
     }
@@ -107,7 +107,7 @@ public class UserServiceIntegrationTest {
                 .email("shouldNotAddUserWhenLoginIsNotAvailable@w.w")
                 .roles(roles)
                 .build();
-        userService.save(userDTO);
+        userService.saveUser(userDTO);
         UserDTO userDTOClone = new UserDTO
                 .UserDTOBuilder()
                 .firstName("w")
@@ -117,7 +117,7 @@ public class UserServiceIntegrationTest {
                 .roles(roles)
                 .build();
         //when
-        Throwable thrown = catchThrowable(() -> userService.save(userDTOClone));
+        Throwable thrown = catchThrowable(() -> userService.saveUser(userDTOClone));
         //then
         assertThat(thrown).isInstanceOf(AddUserException.class);
     }
@@ -146,7 +146,7 @@ public class UserServiceIntegrationTest {
                 .email("shouldLoadUserDetails@test.pl")
                 .roles(roles)
                 .build();
-        userService.save(userDTO);
+        userService.saveUser(userDTO);
         //when
         UserDetails userDetails = userService.loadUserByUsername("shouldLoadUserDetails@test.pl");
         //then
@@ -179,7 +179,7 @@ public class UserServiceIntegrationTest {
                 .email("shouldDeleteUser@test.pl")
                 .roles(roles)
                 .build();
-        userService.save(userDTO);
+        userService.saveUser(userDTO);
         int counterAfterSave = userService.getAllUsers().size();
         //when
         userService.deleteUser(userDTO);
@@ -215,7 +215,7 @@ public class UserServiceIntegrationTest {
                 .email("shouldNotDeleteUserWhenUserIsLogged@test.pl")
                 .roles(roles)
                 .build();
-        userService.save(userDTO);
+        userService.saveUser(userDTO);
         //when
         Throwable thrown = catchThrowable(() -> userService.deleteUser(userDTO));
         //then

@@ -2,6 +2,7 @@ package com.gmail.korobacz.projectmanagement.service;
 
 import com.gmail.korobacz.projectmanagement.dto.RoleDTO;
 import com.gmail.korobacz.projectmanagement.exception.AddRoleException;
+import com.gmail.korobacz.projectmanagement.exception.DeleteRoleException;
 import com.gmail.korobacz.projectmanagement.model.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -132,13 +133,17 @@ public class RoleServiceIntegrationTest {
     }
 
     @Test
-    public void shouldSaveRoleWhenRoleNamePrefixIs(){
+    public void shouldDeleteRoleWhenRoleIsNotUsed() throws AddRoleException, DeleteRoleException {
         //given
-        RoleDTO roleDTO = new RoleDTO((long) 1, "ROLE_ADMIN");
+        RoleDTO roleDTO = new RoleDTO((long) 1, "ROLE_NEW");
+        roleService.save(roleDTO);
+        int numberOfRolesBeforeDelete = roleService.getAllPossibleRoles().size();
         //when
-        Throwable thrown = catchThrowable(() -> roleService.save(roleDTO));
+        roleService.deleteRole(roleDTO);
         //then
-        assertThat(thrown).isInstanceOf(AddRoleException.class);
+        int numberOfRolesAfterDelete = roleService.getAllPossibleRoles().size();
+        assertThat(!roleService.getRoleByName(roleDTO).isPresent());
+        assertThat(numberOfRolesBeforeDelete).isEqualTo(numberOfRolesAfterDelete+1);
     }
 
 }

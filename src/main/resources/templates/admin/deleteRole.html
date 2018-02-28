@@ -3,7 +3,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <title>Usuń użytkownika</title>
+    <title>Usuń rolę</title>
 </head>
 
 <body>
@@ -16,20 +16,20 @@
         <div id="content">
 
             <div th:if="${status} == true">
-                <h2>Wybrany użytkownik został usunięty</h2>
+                <h2>Wybrana rola została usunięta</h2>
             </div>
             <div th:if="${status} == false">
-                <h2>Wystąpił błąd, użytkownik nie został usunięty</h2>
+                <h2>Wystąpił błąd, rola nie została usunięta</h2>
             </div>
 
-            <div th:if="${users} !=null">
-                <form name="f" th:action="@{/admin/deleteUser}" th:object="${selectedUser}" method="post">
+            <div th:if="${roles} !=null">
+                <form name="f" th:action="@{/admin/deleteRole}" th:object="${selectedRole}" method="post">
 
-                    <h1>Wybierz użytkownika do usunięcia z poniższej listy</h1>
+                    <h1>Wybierz rolę do usunięcia z poniższej listy</h1>
 
-                    <li th:each="user : ${users}">
-                        <input type="radio" th:field="*{email}" th:value="${user.email}"/>
-                        <label th:text="|${user.email} ${user.firstName} ${user.lastName}">Użytkownik</label>
+                    <li th:each="role : ${roles}">
+                        <input type="radio" th:field="*{name}" th:value="${role.name}"/>
+                        <label th:text="${role.name}">Rola</label>
                     </li>
 
                     <button type="submit" class="btn">Usuń</button>

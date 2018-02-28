@@ -5,6 +5,7 @@ import com.gmail.korobacz.projectmanagement.dto.RoleDTO;
 import com.gmail.korobacz.projectmanagement.dto.UserDTO;
 import com.gmail.korobacz.projectmanagement.exception.AddRoleException;
 import com.gmail.korobacz.projectmanagement.exception.AddUserException;
+import com.gmail.korobacz.projectmanagement.exception.DeleteRoleException;
 import com.gmail.korobacz.projectmanagement.exception.DeleteUserException;
 import com.gmail.korobacz.projectmanagement.service.RoleService;
 import com.gmail.korobacz.projectmanagement.service.UserService;
@@ -38,7 +39,7 @@ public class AdminController {
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUser(@Valid UserDTO user, BindingResult bindingResult, Model model) {
         try {
-            userService.save(user);
+            userService.saveUser(user);
             model.addAttribute("status", true);
         } catch (AddUserException e) {
             model.addAttribute("status", false);
@@ -91,9 +92,9 @@ public class AdminController {
     @RequestMapping(value = "/deleteRole", method = RequestMethod.POST)
     public String deleteRole(@Valid RoleDTO role, BindingResult bindingResult, Model model) {
         try {
-            roleService.save(role);
+            roleService.deleteRole(role);
             model.addAttribute("status", true);
-        } catch (AddRoleException e) {
+        } catch (DeleteRoleException e) {
             model.addAttribute("status", false);
         }
         return "admin/deleteRole";
